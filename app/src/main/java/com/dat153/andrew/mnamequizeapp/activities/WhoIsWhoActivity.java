@@ -1,5 +1,6 @@
 package com.dat153.andrew.mnamequizeapp.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.dat153.andrew.mnamequizeapp.R;
+import com.dat153.andrew.mnamequizeapp.utils.OwnerDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,6 +57,7 @@ public class WhoIsWhoActivity extends AppCompatActivity {
 
 
 
+
     /**
      * Load Next random image REAL-TIME from Firbase.
      *
@@ -69,6 +72,16 @@ public class WhoIsWhoActivity extends AppCompatActivity {
     }
 
 
+    // Open dialog method
+    public void openDialog(){
+
+        // Create instance of dialog
+        OwnerDialog ownerDialog = new OwnerDialog();
+        ownerDialog.show(getSupportFragmentManager(),"new created dialog");
+
+    }
+
+
 
     /**
      *
@@ -78,6 +91,9 @@ public class WhoIsWhoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whoiswho);
+
+        // OpenDialog
+        openDialog();
 
         btnStartPauseStart = (Button) findViewById(R.id.btnStart_Pause_Start);
         btRestart = (Button) findViewById(R.id.btnRestart);

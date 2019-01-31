@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.splash_screen);
 
 
-        /** new Handler to start the WhoIsWhoActivity(Quiz Acitivity), last 3.5 sec.**/
+        /** new Handler to start the WhoIsWhoActivity(Quiz Acitivity), last 3 sec**/
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
@@ -30,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }, SPLASH_DISPLAY_LENGTH);
+    }
+
+
+    /** Open pop up alert dialog **/
+    public void openDialog(){
+
+
     }
 
 
