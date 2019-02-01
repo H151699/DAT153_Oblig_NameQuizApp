@@ -1,5 +1,7 @@
 package com.dat153.andrew.mnamequizeapp.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dat153.andrew.mnamequizeapp.adapters.ImageAdapter;
@@ -29,6 +32,7 @@ public class ViewImageActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private List<Upload> mUploads;
 
+    private TextView textViewTest;
     /**
      *
      * @param savedInstanceState
@@ -39,10 +43,17 @@ public class ViewImageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_image);
 
 
+
+
+
+
+
+
         progressBar=findViewById(R.id.progress_circular);
         mRecyclerView=findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
 
         mUploads=new ArrayList<>();

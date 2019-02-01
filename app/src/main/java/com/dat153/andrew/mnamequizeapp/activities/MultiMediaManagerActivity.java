@@ -4,8 +4,10 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -71,6 +73,7 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
     private StorageTask mUploadTask;
+    private TextView txtUploadImage;
 
 
     /************************************************************************************************/
@@ -95,6 +98,12 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multi_media_manager);
+        txtUploadImage = (TextView) findViewById(R.id.txtUploadImage);
+
+        SharedPreferences mPref = getApplicationContext().getSharedPreferences("mySharedPref", Context.MODE_PRIVATE);
+        String s =  mPref.getString("ownerNameKey", null);
+        txtUploadImage.setText(s);
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
 
         /************************************************************************************************/
 

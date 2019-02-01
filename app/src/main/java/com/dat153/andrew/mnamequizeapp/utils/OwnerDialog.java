@@ -52,17 +52,18 @@ public class OwnerDialog extends AppCompatDialogFragment {
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
 
                     private SharedPreferences mPreferences;
-                    private SharedPreferences.Editor mEditor;
+                    private SharedPreferences.Editor sharePrefEditor;
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        //Add sharedpreF
-                        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                        mEditor = mPreferences.edit();
-                         
                         String ownerName = editText_ownerName.getText().toString().trim();
-                        mEditor.putString("ownerNameKey", ownerName );
+                        //Add sharedpreF
+                        mPreferences = getActivity().getApplicationContext().getSharedPreferences("mySharedPref", Context.MODE_PRIVATE);
+                        sharePrefEditor = mPreferences.edit();
+                        sharePrefEditor.putString("ownerNameKey", ownerName );
+                        sharePrefEditor.commit();
+
 
 
                         ownerDialogListener.applyTexts(ownerName); // sendto Activity

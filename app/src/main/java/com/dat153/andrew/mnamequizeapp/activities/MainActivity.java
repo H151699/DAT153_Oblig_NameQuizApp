@@ -10,7 +10,7 @@ import com.dat153.andrew.mnamequizeapp.R;
 public class MainActivity extends AppCompatActivity {
 
     /** Duration of waiting  3.5s  **/
-    final int SPLASH_DISPLAY_LENGTH = 2000;
+    final int SPLASH_DISPLAY_LENGTH = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
