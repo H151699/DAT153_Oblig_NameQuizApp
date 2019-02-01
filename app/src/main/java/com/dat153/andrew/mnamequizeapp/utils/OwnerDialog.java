@@ -66,6 +66,7 @@ public class OwnerDialog extends AppCompatDialogFragment {
 
 
 
+
                         ownerDialogListener.applyTexts(ownerName); // sendto Activity
 
                     }
