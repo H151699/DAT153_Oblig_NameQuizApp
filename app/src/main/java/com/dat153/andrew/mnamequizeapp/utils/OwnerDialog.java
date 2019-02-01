@@ -5,11 +5,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.dat153.andrew.mnamequizeapp.R;
 import com.dat153.andrew.mnamequizeapp.activities.MainActivity;
@@ -18,6 +21,8 @@ import com.dat153.andrew.mnamequizeapp.activities.WhoIsWhoActivity;
 public class OwnerDialog extends AppCompatDialogFragment {
 
     private EditText editText_ownerName;
+    private OwnerDialogListener ownerDialogListener;
+
 
 
 
@@ -42,20 +47,25 @@ public class OwnerDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.add_owner_dialog, null); // rootView pass null
 
         builder.setView(view)
-                .setTitle("Add Owner")
-                .setMessage("This is a dialog")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setTitle("Please add owner name")
+                //.setMessage("This is a dialog")
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+
+                    private SharedPreferences mPreferences;
+                    private SharedPreferences.Editor mEditor;
+
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                })
+                        //Add sharedpreF
+                        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                        mEditor = mPreferences.edit();
+                         
+                        String ownerName = editText_ownerName.getText().toString().trim();
+                        mEditor.putString("ownerNameKey", ownerName );
 
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                        // close dialog
+
+                        ownerDialogListener.applyTexts(ownerName); // sendto Activity
 
                     }
                 });
@@ -69,6 +79,28 @@ public class OwnerDialog extends AppCompatDialogFragment {
         return builder.create();
 
     }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            ownerDialogListener = (OwnerDialogListener)context; // shotcut for try/catch :  1.select 2,ctr+alt+t
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + "must implement OwnerDialogListener");
+        }
+    }
+
+    //
+    public interface OwnerDialogListener{
+
+        void applyTexts(String oname);
+
+
+    }
+
+
 
 
 

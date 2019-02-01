@@ -1,11 +1,12 @@
 package com.dat153.andrew.mnamequizeapp.activities;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,15 +23,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 
-public class WhoIsWhoActivity extends AppCompatActivity {
+public class WhoIsWhoActivity extends AppCompatActivity implements OwnerDialog.OwnerDialogListener {
 
-    private TextView textViewOfImg, textView_clearText;
+    private TextView textViewOfImg, textView_clearText, textView_showOwnerName;
     private ImageView mImageView;
 
     private CountDownTimer countDownTimer;
@@ -44,7 +46,8 @@ public class WhoIsWhoActivity extends AppCompatActivity {
     private static final long START_TIME_IN_MILLIS = 60000; // countdown 60 seconds
 
     private Button btnNext, btnSubmit,btnStartPauseStart, btnAddImage, btRestart;
-    private EditText editText_userInput;
+    private EditText editText_userInput, editTextOname;
+
 
     // Firebase pointer
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -53,6 +56,7 @@ public class WhoIsWhoActivity extends AppCompatActivity {
     List<String> pictureList = new ArrayList<>();
     List<String> pictureNameList = new ArrayList<>();
     Random random = new Random(System.currentTimeMillis());
+
 
 
 
@@ -77,11 +81,19 @@ public class WhoIsWhoActivity extends AppCompatActivity {
 
         // Create instance of dialog
         OwnerDialog ownerDialog = new OwnerDialog();
+        ownerDialog.setCancelable(false); // disable dismiss alert dialog close when click outside of it
         ownerDialog.show(getSupportFragmentManager(),"new created dialog");
+        Toast.makeText(this, "hello",Toast.LENGTH_SHORT).show();
+
 
     }
 
 
+    //
+    @Override
+    public void applyTexts(String ownerName) {
+        textView_showOwnerName.setText(ownerName);
+    }
 
     /**
      *
@@ -93,7 +105,9 @@ public class WhoIsWhoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_whoiswho);
 
         // OpenDialog
-        openDialog();
+
+        editTextOname = (EditText) findViewById(R.id.editText_ownerName);
+
 
         btnStartPauseStart = (Button) findViewById(R.id.btnStart_Pause_Start);
         btRestart = (Button) findViewById(R.id.btnRestart);
@@ -107,6 +121,14 @@ public class WhoIsWhoActivity extends AppCompatActivity {
         textView_score = (TextView) findViewById(R.id.textView_score);
         textView_attempt= (TextView) findViewById(R.id.textView_attempt);
         editText_userInput = (EditText)findViewById(R.id.editText_guessedName);
+        textView_showOwnerName = (TextView) findViewById(R.id.textView_showOwnerName);
+
+
+
+
+            openDialog();
+
+
 
 
         /**
