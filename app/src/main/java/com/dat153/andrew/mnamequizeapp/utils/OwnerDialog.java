@@ -90,6 +90,7 @@ public class OwnerDialog extends AppCompatDialogFragment {
         try {
             ownerDialogListener = (OwnerDialogListener)context; // shotcut for try/catch :  1.select 2,ctr+alt+t
         } catch (ClassCastException e) {
+
             throw new ClassCastException(context.toString() + "must implement OwnerDialogListener");
         }
     }

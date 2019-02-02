@@ -1,5 +1,7 @@
 package com.dat153.andrew.mnamequizeapp.activities;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -8,8 +10,10 @@ import android.os.Bundle;
 
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -86,7 +90,7 @@ public class WhoIsWhoActivity extends AppCompatActivity implements OwnerDialog.O
         OwnerDialog ownerDialog = new OwnerDialog();
         ownerDialog.setCancelable(false); // disable dismiss alert dialog close when click outside of it
         ownerDialog.show(getSupportFragmentManager(),"new created dialog");
-        Toast.makeText(this, "hello",Toast.LENGTH_SHORT).show();
+
 
 
     }
@@ -453,7 +457,23 @@ public class WhoIsWhoActivity extends AppCompatActivity implements OwnerDialog.O
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
         return true;
+
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.menu_editOwnerName){
+
+        openDialog();
+
+    }
+
+        return super.onOptionsItemSelected(item);
+
+
+    } //
+
+
 
 
 

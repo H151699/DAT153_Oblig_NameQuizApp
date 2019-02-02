@@ -1,9 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    s<item
-        android:id="@+id/menu"
-        android:title="sharedPref"
+    <item
+        android:id="@+id/menu_editOwnerName"
+        android:title="Edit owne name"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_about"
+        android:title="about"
+        app:showAsAction="never" />
+
+
 
 </menu>
