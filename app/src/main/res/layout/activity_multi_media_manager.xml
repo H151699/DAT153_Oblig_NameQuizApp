@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".activities.MultiMediaManagerActivity">
 
+    // add tool bar
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <Button
         android:id="@+id/btnCapturePhoto"
         android:layout_width="match_parent"
@@ -21,11 +27,12 @@
         android:id="@+id/txtUploadImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="68dp"
         android:text="Preview"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="@color/colorblack"
+        android:textColor="@color/colorb"
         android:textSize="24sp" />
 
 

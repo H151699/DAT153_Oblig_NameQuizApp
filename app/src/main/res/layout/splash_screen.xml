@@ -4,7 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorOrange">
-
+    // add tool bar
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
 
     <ImageView
         android:id="@+id/splashscreen"
