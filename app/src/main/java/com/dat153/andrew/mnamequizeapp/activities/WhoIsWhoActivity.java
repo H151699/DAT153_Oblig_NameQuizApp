@@ -68,7 +68,6 @@ public class WhoIsWhoActivity extends AppCompatActivity implements OwnerDialog.O
 
 
 
-
     /**
      * Load Next random image REAL-TIME from Firbase.
      *
@@ -77,7 +76,12 @@ public class WhoIsWhoActivity extends AppCompatActivity implements OwnerDialog.O
     public void loadNext(){
         //randomNumber = random.nextInt(urlCount);
         //Glide.with(WhoIsWhoActivity.this).load(pictureList).into(mImageView);
+
+
         int next = random.nextInt(pictureList.size());
+
+
+
         Glide.with(WhoIsWhoActivity.this).load(pictureList.get(next)).into(mImageView);
         textViewOfImg.setText(pictureNameList.get(next));
     }
@@ -297,8 +301,11 @@ public class WhoIsWhoActivity extends AppCompatActivity implements OwnerDialog.O
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){ /* Gives access to all of the immediate children of this snapshot. */
 
+
+
                     // String url = ds.getKey();
                     HashMap<String, Object> map = (HashMap<String, Object>) ds.getValue();
+
 
                     //urlList.add();
                     pictureList.add((String) map.get("imgUrl"));

@@ -24,6 +24,13 @@ public class Upload {
         this.imgUrl = imgUrl;
     }
 
+
+
+
+    public Upload(String imageName){
+        this.imgName = imageName;
+    }
+
     /**
      *
      * @return

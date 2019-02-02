@@ -24,6 +24,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -37,10 +38,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.dat153.andrew.mnamequizeapp.R;
 import com.dat153.andrew.mnamequizeapp.utils.Upload;
+import com.dat153.andrew.mnamequizeapp.utils.Validator;
+import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -71,6 +77,7 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
     private EditText imgDescription;
     private ProgressBar uploadProgress;
     private Uri imgUrl;
+    private FirebaseDatabase mFirebaseRef;
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
     private StorageTask mUploadTask;
@@ -167,7 +174,67 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
                 if (mUploadTask != null && mUploadTask.isInProgress()) {
                     Toast.makeText(MultiMediaManagerActivity.this, "Upload in progress", Toast.LENGTH_LONG).show();
                 } else {
-                    uploadImage();
+
+
+
+
+                    mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            String imgName = imgDescription.getText().toString().trim();
+
+
+
+
+
+                            //                                if(checkImgNameExists(imgName, dataSnapshot )) {
+//
+//
+//
+//                                }
+                            if(TextUtils.isEmpty(imgName) ){
+
+                                Toast.makeText(MultiMediaManagerActivity.this, "Name required", Toast.LENGTH_SHORT).show();
+                            } else if(checkImgNameExists(imgName, dataSnapshot )){
+                                Toast.makeText(MultiMediaManagerActivity.this, "Name alread exist", Toast.LENGTH_SHORT).show();
+
+
+                            }else if(!TextUtils.isEmpty(imgName) && !checkImgNameExists(imgName, dataSnapshot )){
+                                uploadImage();
+                            }
+
+
+
+//                            if(imgName.length() != 0 ){
+//
+
+//
+//                                uploadImage();
+//
+//
+//                            }
+
+
+                            }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+
+
+
+
+
+
+
+                   // uploadImage();
                 }
             }
         });
@@ -211,16 +278,6 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
-//        if (requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
-//            Log.d("onActivityResult", "CHOOSE IMAGE");
-//            imgUrl = data.getData();
-//            Picasso.with(this).load(imgUrl).into(imagePreview);
-//            }
-
-
-
 
         if (resultCode == Activity.RESULT_OK) {
 
@@ -320,9 +377,15 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     Upload upload = new Upload(imgDescription.getText().toString().trim(), uri.toString());
+
+
+
                                     String uploadID = mDatabaseRef.push().getKey();
+
                                     mDatabaseRef.child(uploadID).setValue(upload);
                                     Toast.makeText(MultiMediaManagerActivity.this, "Upload successfully", Toast.LENGTH_LONG).show();
+
+                                    // show imagepreview background and empty text field.
                                     imagePreview.setImageResource(R.drawable.imagepreview);
                                     imgDescription.setText("");
                                 }
@@ -623,7 +686,33 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
 
     } // onRequestPermissionsResult
 
+    public boolean checkImgNameExists(String ImgName, DataSnapshot dataSnapshot){
+        Log.d("log",  "checkImgNameExists : checking if: " + ImgName + "exists already." );
 
+        Upload uploadImgName = new Upload();
+
+        // loop through firebase nodes
+        for(DataSnapshot ds: dataSnapshot.getChildren()){
+            Log.d("datasnapshot", "checkImgNameExists : datasnapshot: " + ds);
+
+            uploadImgName.setImgName(ds.getValue(Upload.class).getImgName());
+
+            if(uploadImgName.getImgName().equals(ImgName)){
+
+                Log.d("checkImgNameExists", "Found A MATCH " + uploadImgName.getImgName());
+                return true;
+
+
+
+            }
+
+        }
+        return false;
+
+
+
+
+    }
 
 } // MultiMediaManagerActivity Class
 
