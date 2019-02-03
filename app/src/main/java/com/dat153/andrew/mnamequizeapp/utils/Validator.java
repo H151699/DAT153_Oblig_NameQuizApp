@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 
+// NOT USED CLASS
+
+
 
 public class Validator {
 

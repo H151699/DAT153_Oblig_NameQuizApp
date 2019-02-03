@@ -16,21 +16,29 @@ import android.widget.Toast;
 import com.dat153.andrew.mnamequizeapp.adapters.ImageAdapter;
 import com.dat153.andrew.mnamequizeapp.R;
 import com.dat153.andrew.mnamequizeapp.utils.Upload;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewImageActivity extends AppCompatActivity {
+public class ViewImageActivity extends AppCompatActivity implements ImageAdapter.OnItemClickListener {
 
     private RecyclerView mRecyclerView;
     private ImageAdapter mAdapter;
     private ProgressBar progressBar;
+
+    private FirebaseStorage mStorage;
     private DatabaseReference mDatabaseRef;
+    private ValueEventListener mDBListener;
+
+
     private List<Upload> mUploads;
 
     private TextView textViewTest;
@@ -56,12 +64,16 @@ public class ViewImageActivity extends AppCompatActivity {
         mRecyclerView=findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
         mUploads=new ArrayList<>();
+
+        mAdapter=new ImageAdapter(ViewImageActivity.this, mUploads);
+        mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(ViewImageActivity.this);
+
+        mStorage = FirebaseStorage.getInstance();
         mDatabaseRef= FirebaseDatabase.getInstance().getReference("uploads"); // Firebase image root name;
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+        mDBListener = mDatabaseRef.addValueEventListener(new ValueEventListener() {
 
             /**
              *
@@ -69,13 +81,21 @@ public class ViewImageActivity extends AppCompatActivity {
              */
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot postSnapshot:dataSnapshot.getChildren())
-                {
+                mUploads.clear();
+
+                for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
+
                     Upload upload=postSnapshot.getValue(Upload.class);
+                    upload.setImgKey(postSnapshot.getKey());
                     mUploads.add(upload);
                 }
-                mAdapter=new ImageAdapter(ViewImageActivity.this, mUploads);
-                mRecyclerView.setAdapter(mAdapter);
+
+                mAdapter.notifyDataSetChanged();
+//
+//                mAdapter=new ImageAdapter(ViewImageActivity.this, mUploads);
+//                mRecyclerView.setAdapter(mAdapter);
+//
+//                mAdapter.setOnItemClickListener(ViewImageActivity.this);
                 progressBar.setVisibility(View.INVISIBLE);
             }
 
@@ -99,4 +119,48 @@ public class ViewImageActivity extends AppCompatActivity {
 
 
     }
+
+
+    @Override
+    public void onItemClick(int position) {
+
+        Toast.makeText(this,  "Normal click at position" + position, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onWhatEverClick(int position) {
+
+        Toast.makeText(this,  "Whatever click at position" + position, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onDeleteClick(int position) {
+
+        Upload selectedItem = mUploads.get(position);
+        final String selectedKey =  selectedItem.getImgKey();
+        StorageReference imageRef = mStorage.getReferenceFromUrl(selectedItem.getImgUrl());
+        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+                mDatabaseRef.child(selectedKey).removeValue();
+                Toast.makeText(ViewImageActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        mDatabaseRef.removeEventListener(mDBListener);
+    }
+
+
+
+
 }

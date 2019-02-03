@@ -83,6 +83,8 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
     private StorageTask mUploadTask;
     private TextView txtUploadImage;
 
+    private String append = "";
+
 
     /************************************************************************************************/
 
@@ -176,8 +178,9 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
                 } else {
 
 
-
-
+                    /**
+                     * Checking if the image  Name is already existed in database.
+                     */
                     mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
                         @Override
@@ -185,37 +188,27 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
 
                             String imgName = imgDescription.getText().toString().trim();
 
-
-
-
-
-                            //                                if(checkImgNameExists(imgName, dataSnapshot )) {
-//
-//
-//
-//                                }
+                            /**
+                             * TextUtils to Check if textField is empty
+                             */
                             if(TextUtils.isEmpty(imgName) ){
 
                                 Toast.makeText(MultiMediaManagerActivity.this, "Name required", Toast.LENGTH_SHORT).show();
+
+                                /**
+                                 * name already exists in db
+                                 */
                             } else if(checkImgNameExists(imgName, dataSnapshot )){
-                                Toast.makeText(MultiMediaManagerActivity.this, "Name alread exist", Toast.LENGTH_SHORT).show();
+
+                               // append = mDatabaseRef.push().getKey().substring(3,10);// get 7 chars
+                                // imgName = imgName + append;
+                                   Toast.makeText(MultiMediaManagerActivity.this, "Name alread exist", Toast.LENGTH_SHORT).show();
 
 
                             }else if(!TextUtils.isEmpty(imgName) && !checkImgNameExists(imgName, dataSnapshot )){
+                                // no field empty no duplicate name in database, yes shoot!
                                 uploadImage();
                             }
-
-
-
-//                            if(imgName.length() != 0 ){
-//
-
-//
-//                                uploadImage();
-//
-//
-//                            }
-
 
                             }
 
@@ -455,7 +448,9 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
 //
 //}
 
+    public void removeImage(){
 
+    }
 
 
 

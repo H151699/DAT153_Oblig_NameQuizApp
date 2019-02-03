@@ -1,8 +1,12 @@
 package com.dat153.andrew.mnamequizeapp.utils;
 
+import com.google.firebase.database.Exclude;
+
 public class Upload {
     private String imgName;
     private String imgUrl;
+    private String imgKey;
+
 
     /**
      *
@@ -61,5 +65,15 @@ public class Upload {
      */
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    @Exclude
+    public void setImgKey(String imgKey) {
+        this.imgKey = imgKey;
+    }
+
+    @Exclude
+    public String getImgKey() {
+        return imgKey;
     }
 }
