@@ -19,7 +19,9 @@
         android:layout_below="@+id/btnChooseImg"
         android:layout_marginTop="4dp"
         android:text="Take a photo..."
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@color/colorBlack"
+        android:textColor="@color/colorCoquelicot"/>
     <!-- android:drawableLeft="@drawable/icon_camera"-->
 
 
@@ -32,7 +34,7 @@
         android:text="Preview"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="@color/colorb"
+        android:textColor="@color/colorCoquelicot"
         android:textSize="24sp" />
 
 
@@ -59,6 +61,8 @@
         android:layout_below="@+id/uploadProgress"
         android:layout_marginTop="40px"
         android:text="Choose image  from gallery"
+        android:background="@color/colorBlack"
+        android:textColor="@color/colorCoquelicot"
         android:textSize="18sp" />
     <!-- android:drawableLeft="@drawable/icon_camera"  -->
 
@@ -74,13 +78,16 @@
 
     <Button
         android:id="@+id/btnUploadImage"
-        android:layout_width="wrap_content"
+        android:layout_width="186dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="9dp"
+        android:background="@color/colorCoquelicot"
         android:text="Upload Image to Firebase"
+        android:textColor="@color/colorWhite"
         android:textSize="12sp" />
+
     <!-- android:drawableLeft="@drawable/icon_upload"  -->
 
     <TextView
@@ -92,6 +99,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:text="View uploaded"
+        android:textColor="@color/colorCoquelicot"
         android:textSize="20sp"
 
         />

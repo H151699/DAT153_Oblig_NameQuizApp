@@ -4,7 +4,12 @@
     <color name="colorPrimaryDark">#1B1B14</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorOrange">#FFEB3B</color>
-    <color name="colorb">#0A110D</color>
-    <color name="colorLightGreen">#4CAF50</color>
+    <color name="colorBlack">#0A110D</color>
+    <color name="colorCoquelicot">#FF3D00</color>
+    <color name="colorCoquelicotLit">#FF7700</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+
+
 
 </resources>
