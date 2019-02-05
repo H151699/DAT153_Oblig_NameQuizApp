@@ -11,8 +11,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,8 +36,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.dat153.andrew.mnamequizeapp.R;
 import com.dat153.andrew.mnamequizeapp.utils.Upload;
-import com.dat153.andrew.mnamequizeapp.utils.Validator;
-import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -53,9 +49,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import android.support.design.widget.FloatingActionButton;
-
 
 import java.io.File;
 import java.util.ArrayList;
@@ -120,7 +113,7 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
         SharedPreferences mPref = getApplicationContext().getSharedPreferences("mySharedPref", Context.MODE_PRIVATE);
         String s =  mPref.getString("ownerNameKey", null);
         txtUploadImage.setText(s);
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+
 
         /************************************************************************************************/
 

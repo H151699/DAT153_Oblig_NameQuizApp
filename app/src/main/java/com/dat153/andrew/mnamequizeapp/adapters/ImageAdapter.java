@@ -3,7 +3,6 @@ package com.dat153.andrew.mnamequizeapp.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import com.dat153.andrew.mnamequizeapp.R;
 import com.dat153.andrew.mnamequizeapp.utils.Upload;
-import com.fasterxml.jackson.databind.node.POJONode;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -81,6 +79,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     @Override
     public int getItemCount() {
         return mUploads.size();
+
 
     }
 

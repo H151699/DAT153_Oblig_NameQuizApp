@@ -1,16 +1,11 @@
 package com.dat153.andrew.mnamequizeapp.activities;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,7 +24,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,9 +88,6 @@ public class WhoIsWhoActivity extends AppCompatActivity implements OwnerDialog.O
         OwnerDialog ownerDialog = new OwnerDialog();
         ownerDialog.setCancelable(false); // disable dismiss alert dialog close when click outside of it
         ownerDialog.show(getSupportFragmentManager(),"new created dialog");
-
-
-
     }
 
 
