@@ -138,7 +138,6 @@ public class ExampleInstrumentedTest {
          */
         // onView(withId(R.id.editText_guessedName)).check(matches(withText(R.id.textView_showImgName)));
 
-
         onView(withId(R.id.textView_score)).check(matches(withText("Score: 1")));
 
     }
