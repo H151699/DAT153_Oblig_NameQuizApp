@@ -702,6 +702,12 @@ public class MultiMediaManagerActivity extends AppCompatActivity {
 
     }
 
+
+    public void setNewImageUri(Uri uri)
+    {
+        imgUrl = uri;
+    }
+
 } // MultiMediaManagerActivity Class
 
 
