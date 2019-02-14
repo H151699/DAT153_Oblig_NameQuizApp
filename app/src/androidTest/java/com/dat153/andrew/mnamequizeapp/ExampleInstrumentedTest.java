@@ -55,7 +55,7 @@ public class ExampleInstrumentedTest {
 
 
 
-    //@Test
+    @Test
     public void aButtonNotVisibleTest(){
 
         onView(withId(R.id.btnRestart))
@@ -63,7 +63,7 @@ public class ExampleInstrumentedTest {
     }
 
 
-    //@Test
+    @Test
     public void addOwnerTest(){
 
 
@@ -85,7 +85,7 @@ public class ExampleInstrumentedTest {
 
     }
 
-    //@Test
+    @Test
     public void attemptIncreasedTest() throws InterruptedException {
 
         onView(withId(R.id.editText_ownerName)). perform(typeText("hello"), closeSoftKeyboard());
