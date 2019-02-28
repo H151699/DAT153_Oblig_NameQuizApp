@@ -95,7 +95,7 @@ public class MultiMediaManagerActivityTest {
 
 
         //Fill in name and then submit
-        onView(withId(R.id.imgDescription)).perform(click()).perform(typeText("imagetestname6"), closeSoftKeyboard());
+        onView(withId(R.id.imgDescription)).perform(click()).perform(typeText("imagetestname7"), closeSoftKeyboard());
         onView(withId(R.id.btnUploadImage)).perform(click());
 
         //wait needed to submit the entry to database
